@@ -1,0 +1,24 @@
+services:
+  strapi:
+    image: strapi/strapi:latest
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_NAME: ${DB_STRAPI_NAME}
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: ${DB_USER}
+      DATABASE_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - /srv/apps/strapi:/srv/app
+    ports:
+      - "8000:1337"
+    
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+       - /srv/db:/var/lib/postgresql/data
+    
